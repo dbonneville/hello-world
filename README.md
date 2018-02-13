@@ -1,5 +1,3 @@
 # hello-world
 
-this is my first test
-
-and this is my first edit
+this is a goofy site building experiment
