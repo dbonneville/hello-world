@@ -1,9 +1,22 @@
-import csv
+import csv, shutil, os
 from shutil import copyfile
 from titlecase import titlecase
 
 # vars
+path = "output"
 keyword = 'appliance-repair'
+
+# delete output
+shutil.rmtree(path)
+
+# recreate output
+os.makedirs(path,0755);
+
+# copy assets
+shutil.copytree('input/css','output/css')
+shutil.copytree('input/js','output/js')
+
+###
 
 # load cities
 with open('input/data/cities.csv', 'rb') as file:
@@ -12,11 +25,12 @@ with open('input/data/cities.csv', 'rb') as file:
 
 # get rid of header row
 cityList.pop(0)
-'''
-# TEST
-for row in cityList:
-    print row[0] + ' ' + row[1]
-'''
+
+#load header
+with open('input/html/header.html', 'r') as file :
+  header = file.read()
+
+
 # loop through cities, swap data and save pages to output folder
 for row in cityList:
 
@@ -36,6 +50,9 @@ for row in cityList:
     cityTemplate = cityTemplate.replace('##ZIPCODE##', zipcode)
     cityTemplate = cityTemplate.replace('##ANIMAL##', animal)
 
+    # insert header
+    cityTemplate = cityTemplate.replace('##HEADER##', header)
+
     # remove spaces for use in file URI
     city = city.replace(' ','-')
 
@@ -50,6 +67,9 @@ cityListOutput = '<ul>'
 # get the index page
 with open('input/index.html', 'r') as file :
   template = file.read()
+
+# insert header
+template = template.replace('##HEADER##', header)
 
 for row in cityList:
 
