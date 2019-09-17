@@ -61,6 +61,10 @@ for row in cityList:
       file.write(cityTemplate)
 
 
+######################
+### HOMEPAGE START ###
+######################
+
 # city list for homepage
 cityListOutput = '<ul>'
 
@@ -86,16 +90,72 @@ for row in cityList:
 # close off city list
 cityListOutput += '</ul>'
 
-
 # Replace the target string
 template = template.replace('##CITYLIST##', cityListOutput)
 
+
+
+### states start
+# empty list
+stateOutput = []
+
+# load list of states
+with open('input/data/uscities2000.csv', 'rb') as file:
+    reader = csv.reader(file)
+    stateList = list(reader)
+
+# loop over data and shove states into our list
+for row in stateList:
+    state = row[3]
+    stateOutput.append([state])
+
+# function to remove duplicate elements from our list
+def Remove(duplicate):
+    final_list = []
+    for num in duplicate:
+        if num not in final_list:
+            final_list.append(num)
+    return final_list
+
+# run function
+stateOutput = Remove(stateOutput)
+
+# remove header row from list
+stateOutput.pop(0)
+
+# loop through list and create HTML snippet
+stateListHTML = ''
+
+for row in stateOutput:
+
+    keywordLink = titlecase(keyword)
+    keywordLink = keywordLink.replace('-',' ')
+
+    state = row[0].lower()
+
+    # remove spaces for use in file URI
+    state = state.replace(' ','-')
+
+    stateListHTML += '<a href="' + state.lower() + '-' +keyword + '.html">' + row[0] + ' ' + keywordLink + '</a>'
+
+print stateListHTML;
+
+# Replace the target string
+template = template.replace('##STATELIST##', stateListHTML)
+
+
+### states end
+
+
+
+### WRITE ###
 # save new index to output folder
 with open('output/index.html', 'w') as file:
   file.write(template)
 
-
-
+######################
+### HOMEPAGE END   ###
+######################
 
 
 

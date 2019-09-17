@@ -1,0 +1,12 @@
+notes
+
+Hi Sony. Can you do a custom scrape for me? I have a list of 2000 US cities. I need the URL from only the very first SERP result of all those searches in Google.
+
+Example. Search: "Juno AL" . Google result #1 is "http://juno.alaska.state.gov". Take that URL and put into an excel file along with the state so that I would get:
+
+City | State | URL
+Juno | AL | http://somewebsite.com
+Moonbat | AL | http://someotherwebsite.com
+Spoonbat | AL | http://yetanotherwebsite.com\
+...
+etc, through 2000 cities.
